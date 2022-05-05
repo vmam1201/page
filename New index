@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYL DBD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+
+<body>
+
+    <div class="loginbox">
+        <img src="https://fersavi.mundoexperto.com.mx/wp-content/uploads/2020/04/0.png" alt="" class="avatar">
+        <h1>Login</h1>
+        <form action="">
+            <p>Username</p>
+            <input type="text" placeholder="Username">
+            <p>Password</p>
+            <input type="password" placeholder="Password">
+            <input type="submit" value="Login">
+            <a href="#">Log in issues</a><br>
+            <a href="#">Contact support</a>
+        </form>
+    </div>
+
+</body>
+</html>
