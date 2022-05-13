@@ -1,0 +1,142 @@
+Dependencias:
+
+<dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.thymeleaf.extras</groupId>
+      <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  
+ Autenticación: 
+ 
+ @SpringBootApplication
+public class WebApplication extends WebSecurityConfigurerAdapter {
+
+  public static void main(String[] args) {
+    SpringApplication.run(WebApplication.class, args);
+  }
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+
+  
+     http.authorizeRequests()
+          .antMatchers("/login")
+              .permitAll()
+          .antMatchers("/**")
+              .hasAnyRole("BASICO")
+          .and()
+              .formLogin()
+              .loginPage("/login")
+              .defaultSuccessUrl("/hola")
+              .failureUrl("/login?error=true")
+              .permitAll()
+          .and()
+              .logout()
+              .logoutSuccessUrl("/login?logout=true")
+              .invalidateHttpSession(true)
+              .permitAll()
+			  
+Autorización: 
+
+http.authorizeRequests()
+         .antMatchers("/login")
+             .permitAll()
+         .antMatchers("/**")
+             .hasAnyRole("BASICO")
+			 
+URLS Access:
+.and()
+              .formLogin()
+              .loginPage("/login")
+              .defaultSuccessUrl("/dashboard")
+              .failureUrl("/login?error=true")
+              .permitAll()
+          .and()
+              .logout()
+              .logoutSuccessUrl("/login?logout=true")
+              .invalidateHttpSession(true)
+              .permitAll()
+              .and()
+              .csrf()
+              .disable();
+Contraseñas:
+
+@Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth.inMemoryAuthentication().withUser("nyldev").password("{noop}dev").roles("BASICO");
+  }
+  
+  
+Log in:
+
+package com.arquitecturajava.we.b;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class LoginController {
+
+  @RequestMapping("/login")
+  public String login() {
+    return "login";
+  }
+}
+
+
+Front End:
+
+<html>
+<head></head>
+<body>
+   <h1>Login</h1>
+   <form name='f' action="login" method='POST'>
+      <table>
+         <tr>
+            <td>Usser:</td>
+            <td><input type='text' name='username' value=''></td>
+         </tr>
+         <tr>
+            <td>Password:</td>
+            <td><input type='password' name='password' /></td>
+         </tr>
+         <tr>
+            <td><input name="submit" type="submit" value="submit" /></td>
+         </tr>
+      </table>
+  </form>
+</body>
+</html>
+
+CSS:
